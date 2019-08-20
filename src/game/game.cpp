@@ -3,7 +3,7 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_mixer.h>
 
-Game::Game() : window(nullptr), renderer(nullptr), event(nullptr), quit(false) {}
+Game::Game() : window(nullptr), renderer(nullptr), event(nullptr), quit(false), timer(nullptr), delta(0) {}
 
 bool Game::init() {
     SDL_LogSetPriority(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO);
@@ -34,6 +34,8 @@ bool Game::init() {
 
     event = new SDL_Event();
 
+    timer = new Timer();
+
     block = new Block({10, 10, BLOCK_WIDTH, BLOCK_HEIGHT});
 
     return true;
@@ -44,12 +46,16 @@ bool Game::loadMedia() {
 }
 
 void Game::update() {
+    timer->start();
+
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
     SDL_RenderClear(renderer);
 
     block->render(renderer);
 
     SDL_RenderPresent(renderer);
+
+    delta = timer->getTicks();
 }
 
 void Game::handleInput() {
@@ -66,6 +72,8 @@ bool Game::isQuit() {
 
 void Game::close() {
     delete block;
+
+    delete timer;
 
     delete event;
 

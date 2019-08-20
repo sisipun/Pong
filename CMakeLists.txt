@@ -14,7 +14,8 @@ set(SOURCE_EXE src/main.cpp)
 set(SOURCE_LIB
         src/game/game.cpp
         src/util/constants.h
-        src/character/block.cpp)
+        src/character/block.cpp
+        src/time/timer.cpp)
 
 add_library(Components STATIC ${SOURCE_LIB})
 add_executable(SuperMario ${SOURCE_EXE})
