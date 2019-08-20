@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include <SDL2/SDL.h>
+#include "../character/block.h"
 
 class Game {
 public:
@@ -23,6 +24,7 @@ private:
     SDL_Window *window;
     SDL_Renderer *renderer;
     SDL_Event *event;
+    Block* block;
     bool quit;
 };
 

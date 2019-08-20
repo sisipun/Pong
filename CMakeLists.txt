@@ -13,7 +13,8 @@ include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_IMAGE_INCLUDE_DIRS} ${SDL2_MIXER
 set(SOURCE_EXE src/main.cpp)
 set(SOURCE_LIB
         src/game/game.cpp
-        src/util/constants.h)
+        src/util/constants.h
+        src/character/block.cpp)
 
 add_library(Components STATIC ${SOURCE_LIB})
 add_executable(SuperMario ${SOURCE_EXE})

@@ -34,6 +34,8 @@ bool Game::init() {
 
     event = new SDL_Event();
 
+    block = new Block({10, 10, BLOCK_WIDTH, BLOCK_HEIGHT});
+
     return true;
 }
 
@@ -42,6 +44,12 @@ bool Game::loadMedia() {
 }
 
 void Game::update() {
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+    SDL_RenderClear(renderer);
+
+    block->render(renderer);
+
+    SDL_RenderPresent(renderer);
 }
 
 void Game::handleInput() {
@@ -57,6 +65,8 @@ bool Game::isQuit() {
 }
 
 void Game::close() {
+    delete block;
+
     delete event;
 
     SDL_DestroyRenderer(renderer);
