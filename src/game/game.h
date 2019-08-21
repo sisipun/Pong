@@ -3,7 +3,8 @@
 
 #include <SDL2/SDL.h>
 #include "../character/block.h"
-#include "../time/timer.h"
+#include "../util/time/timer.h"
+#include "../character/player.h"
 
 class Game {
 public:
@@ -27,10 +28,10 @@ private:
     SDL_Event *event;
     bool quit;
 
-    Timer* timer;
+    Timer *timer;
     float delta;
 
-    Block* block;
+    Player *player;
 };
 
 #endif

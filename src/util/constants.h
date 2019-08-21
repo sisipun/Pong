@@ -6,5 +6,6 @@ const int SCREEN_HEIGHT = 600;
 
 const int BLOCK_WIDTH = 10;
 const int BLOCK_HEIGHT = 100;
+const int BLOCK_VELOCITY = 300;
 
 #endif

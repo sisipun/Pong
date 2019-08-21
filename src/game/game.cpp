@@ -36,7 +36,7 @@ bool Game::init() {
 
     timer = new Timer();
 
-    block = new Block({10, 10, BLOCK_WIDTH, BLOCK_HEIGHT});
+    player = new Player({10, 10, BLOCK_WIDTH, BLOCK_HEIGHT});
 
     return true;
 }
@@ -51,19 +51,21 @@ void Game::update() {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
     SDL_RenderClear(renderer);
 
-    block->render(renderer);
+    player->render(renderer);
+    player->update(delta);
 
     SDL_RenderPresent(renderer);
 
-    delta = timer->getTicks();
+    delta = timer->getTicks() * 0.001;
 }
 
 void Game::handleInput() {
     if (SDL_PollEvent(event) != 0) {
-        if ((*event).type == SDL_QUIT) {
+        if (event->type == SDL_QUIT) {
             quit = true;
         }
     }
+    player->handleInput(event);
 }
 
 bool Game::isQuit() {
@@ -71,7 +73,7 @@ bool Game::isQuit() {
 }
 
 void Game::close() {
-    delete block;
+    delete player;
 
     delete timer;
 
