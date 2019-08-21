@@ -1,4 +1,5 @@
 #include "block.h"
+#include "../util/constants.h"
 
 Block::Block(Body body, float velocity) {
     this->body = body;
@@ -8,7 +9,7 @@ Block::Block(Body body, float velocity) {
 }
 
 void Block::render(SDL_Renderer *renderer) {
-    SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, 0xFF);
+    SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
     SDL_Rect rect = {
             static_cast<int>(body.x),
             static_cast<int>(body.y),
@@ -19,6 +20,12 @@ void Block::render(SDL_Renderer *renderer) {
 }
 
 void Block::update(float delta) {
+    if (body.y < 0) {
+        stopUp();
+    } else if (body.y + body.height > SCREEN_HEIGHT) {
+        stopDown();
+    }
+
     if (this->isMoveUp) {
         this->body.y -= velocity * delta;
     } else if (this->isMoveDown) {
