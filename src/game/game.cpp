@@ -3,7 +3,8 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_mixer.h>
 
-Game::Game() : window(nullptr), renderer(nullptr), event(nullptr), quit(false), timer(nullptr), delta(0) {}
+Game::Game() : window(nullptr), renderer(nullptr), event(nullptr), quit(false), timer(nullptr), delta(0),
+               player(nullptr), ball(nullptr) {}
 
 bool Game::init() {
     SDL_LogSetPriority(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO);
@@ -37,6 +38,7 @@ bool Game::init() {
     timer = new Timer();
 
     player = new Player({10, 10, BLOCK_WIDTH, BLOCK_HEIGHT});
+    ball = new Ball({SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, BALL_WIDTH, BALL_HEIGHT}, -BALL_VELOCITY, -BALL_VELOCITY);
 
     return true;
 }
@@ -52,7 +54,9 @@ void Game::update() {
     SDL_RenderClear(renderer);
 
     player->render(renderer);
+    ball->render(renderer);
     player->update(delta);
+    ball->update(delta);
 
     SDL_RenderPresent(renderer);
 
@@ -73,6 +77,7 @@ bool Game::isQuit() {
 }
 
 void Game::close() {
+    delete ball;
     delete player;
 
     delete timer;

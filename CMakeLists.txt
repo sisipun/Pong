@@ -23,6 +23,7 @@ set(SOURCE_LIB
         #CHARACTER
         src/character/block.cpp
         src/character/player.cpp
+        src/character/ball.cpp
         )
 
 add_library(Components STATIC ${SOURCE_LIB})

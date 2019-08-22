@@ -5,6 +5,7 @@
 #include "../character/block.h"
 #include "../util/time/timer.h"
 #include "../character/player.h"
+#include "../character/ball.h"
 
 class Game {
 public:
@@ -32,6 +33,7 @@ private:
     float delta;
 
     Player *player;
+    Ball *ball;
 };
 
 #endif
