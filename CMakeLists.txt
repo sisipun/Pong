@@ -19,6 +19,7 @@ set(SOURCE_LIB
         src/util/constants.h
         src/util/time/timer.cpp
         src/util/physics/body.h
+        src/util/physics/collision.cpp
 
         #CHARACTER
         src/character/block.cpp

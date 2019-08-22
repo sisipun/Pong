@@ -39,3 +39,7 @@ void Player::handleInput(SDL_Event *event) {
         }
     }
 }
+
+Body Player::getBody() {
+    return this->block->getBody();
+}

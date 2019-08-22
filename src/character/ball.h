@@ -10,7 +10,11 @@ public:
 
     void render(SDL_Renderer *renderer);
 
-    void update(float delta);
+    void update(float delta, Body playerBody);
+
+    void restart(Body body, float horizontalVelocity, float verticalVelocity);
+
+    bool isOutOfScreen();
 
 private:
     Body body;

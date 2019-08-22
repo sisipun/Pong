@@ -56,9 +56,13 @@ void Game::update() {
     player->render(renderer);
     ball->render(renderer);
     player->update(delta);
-    ball->update(delta);
+    ball->update(delta, player->getBody());
 
     SDL_RenderPresent(renderer);
+
+    if (ball->isOutOfScreen()) {
+        ball->restart({SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, BALL_WIDTH, BALL_HEIGHT}, -BALL_VELOCITY, -BALL_VELOCITY);
+    }
 
     delta = timer->getTicks() * 0.001;
 }

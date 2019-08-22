@@ -50,3 +50,7 @@ void Block::stopUp() {
 void Block::stopDown() {
     this->isMoveDown = false;
 }
+
+Body Block::getBody() {
+    return this->body;
+}

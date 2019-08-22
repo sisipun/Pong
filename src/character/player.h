@@ -15,6 +15,8 @@ public:
 
     void handleInput(SDL_Event *event);
 
+    Body getBody();
+
 private:
     Block *block;
 };

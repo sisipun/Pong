@@ -20,6 +20,8 @@ public:
 
     void stopDown();
 
+    Body getBody();
+
 private:
     Body body;
     float velocity;
