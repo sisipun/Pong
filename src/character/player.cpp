@@ -2,7 +2,7 @@
 #include "../util/constants.h"
 
 Player::Player(Body body) {
-    this->block = new Block(body, BLOCK_VELOCITY);
+    this->block = new Block(body, PLAYER_BLOCK_VELOCITY);
 }
 
 Player::~Player() {

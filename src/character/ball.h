@@ -10,11 +10,13 @@ public:
 
     void render(SDL_Renderer *renderer);
 
-    void update(float delta, Body playerBody);
+    void update(float delta, Body playerBody, Body enemyBody);
 
     void restart(Body body, float horizontalVelocity, float verticalVelocity);
 
     bool isOutOfScreen();
+
+    Body getBody();
 
 private:
     Body body;

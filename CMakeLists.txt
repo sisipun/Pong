@@ -24,6 +24,7 @@ set(SOURCE_LIB
         #CHARACTER
         src/character/block.cpp
         src/character/player.cpp
+        src/character/enemy.cpp
         src/character/ball.cpp
         )
 

@@ -1,27 +1,24 @@
-#ifndef PLAYER_H
-#define PLAYER_H
+#ifndef ENEMY_H
+#define ENEMY_H
 
 #include "SDL2/SDL.h"
 #include "block.h"
 #include "../util/physics/body.h"
 
-class Player {
+class Enemy {
 public:
-    explicit Player(Body body);
+    explicit Enemy(Body body);
 
-    ~Player();
+    ~Enemy();
 
     void render(SDL_Renderer *renderer);
 
-    void update(float delta);
-
-    void handleInput(SDL_Event *event);
+    void update(float delta, Body ballBody);
 
     Body getBody();
 
 private:
     Block *block;
 };
-
 
 #endif

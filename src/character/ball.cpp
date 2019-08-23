@@ -20,7 +20,7 @@ void Ball::render(SDL_Renderer *renderer) {
     SDL_RenderFillRect(renderer, &rect);
 }
 
-void Ball::update(float delta, Body playerBody) {
+void Ball::update(float delta, Body playerBody, Body enemyBody) {
     this->body.x += this->horizontalVelocity * delta;
     this->body.y += this->verticalVelocity * delta;
 
@@ -28,11 +28,15 @@ void Ball::update(float delta, Body playerBody) {
         this->verticalVelocity = -this->verticalVelocity;
     }
 
-    int collisionResult = checkLeftCollision(this->body, playerBody);
-    SDL_Log("Coll %d", collisionResult);
+    int playerCollisionResult = checkLeftCollision(this->body, playerBody);
+    if (playerCollisionResult != 0) {
+        this->verticalVelocity = playerCollisionResult * fabsf(this->verticalVelocity);
+        this->horizontalVelocity = -this->horizontalVelocity;
+    }
 
-    if (collisionResult != 0) {
-        this->verticalVelocity = collisionResult * fabsf(this->verticalVelocity);
+    int enemyCollisionResult = checkRightCollision(this->body, enemyBody);
+    if (enemyCollisionResult != 0) {
+        this->verticalVelocity = enemyCollisionResult * fabsf(this->verticalVelocity);
         this->horizontalVelocity = -this->horizontalVelocity;
     }
 }
@@ -45,4 +49,8 @@ void Ball::restart(Body body, float horizontalVelocity, float verticalVelocity) 
 
 bool Ball::isOutOfScreen() {
     return this->body.x < 0 || this->body.x + this->body.width > SCREEN_WIDTH;
+}
+
+Body Ball::getBody() {
+    return this->body;
 }

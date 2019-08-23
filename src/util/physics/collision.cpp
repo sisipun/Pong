@@ -40,7 +40,7 @@ int checkRightCollision(Body ball, Body block) {
     bottomBall = ball.y + ball.height;
     horizontalCenterBall = ball.y + ball.height / 2;
 
-    leftBlock = block.x + block.width;
+    leftBlock = block.x;
     topBlock = block.y;
     bottomBlock = block.y + block.height;
     horizontalCenterBlock = block.y + block.height / 2;

@@ -6,7 +6,8 @@ const int SCREEN_HEIGHT = 600;
 
 const int BLOCK_WIDTH = 10;
 const int BLOCK_HEIGHT = 100;
-const int BLOCK_VELOCITY = 300;
+const int PLAYER_BLOCK_VELOCITY = 300;
+const int ENEMY_BLOCK_VELOCITY = 200;
 
 const int BALL_WIDTH = 20;
 const int BALL_HEIGHT = 20;
