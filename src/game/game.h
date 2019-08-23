@@ -2,6 +2,8 @@
 #define GAME_H
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_image.h>
 #include "../character/block.h"
 #include "../util/time/timer.h"
 #include "../character/player.h"
@@ -27,6 +29,7 @@ public:
 private:
     SDL_Window *window;
     SDL_Renderer *renderer;
+    TTF_Font *gFont;
     SDL_Event *event;
     bool quit;
 
@@ -36,6 +39,9 @@ private:
     Player *player;
     Ball *ball;
     Enemy *enemy;
+
+    int enemyScore;
+    int playerScore;
 };
 
 #endif

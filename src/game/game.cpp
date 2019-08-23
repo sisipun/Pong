@@ -1,10 +1,11 @@
+#include <iosfwd>
+#include <sstream>
 #include "game.h"
 #include "../util/constants.h"
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_mixer.h>
+#include "string.h"
 
 Game::Game() : window(nullptr), renderer(nullptr), event(nullptr), quit(false), timer(nullptr), delta(0),
-               player(nullptr), ball(nullptr), enemy(nullptr) {}
+               player(nullptr), ball(nullptr), enemy(nullptr), playerScore(0), enemyScore(0) {}
 
 bool Game::init() {
     SDL_LogSetPriority(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO);
@@ -27,6 +28,11 @@ bool Game::init() {
         return false;
     }
 
+    if (TTF_Init() == -1) {
+        SDL_Log("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
+        return false;
+    }
+
     int imgFlags = IMG_INIT_PNG;
     if (!(IMG_Init(imgFlags) & imgFlags)) {
         SDL_Log("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
@@ -45,6 +51,12 @@ bool Game::init() {
 }
 
 bool Game::loadMedia() {
+    gFont = TTF_OpenFont(R"(F:\Projects\Pong\assets\lazy.ttf)", 28);
+    if (gFont == NULL) {
+        SDL_Log("Failed to load lazy font! SDL_ttf Error: %s\n", TTF_GetError());
+        return false;
+    }
+
     return true;
 }
 
@@ -61,10 +73,21 @@ void Game::update() {
     enemy->update(delta, ball->getBody());
     ball->update(delta, player->getBody(), enemy->getBody());
 
+    std::stringstream score;
+    score << playerScore << ":" << enemyScore;
+    SDL_Surface *scoreSurface = TTF_RenderText_Solid(gFont, score.str().c_str(), {0xFF, 0xFF, 0xFF, 0xFF});
+    SDL_Texture *scoreTexture = SDL_CreateTextureFromSurface(renderer, scoreSurface);
+    SDL_Rect scoreRect = {SCREEN_WIDTH / 2 - 25, 20, 50, 100};
+    SDL_RenderCopyEx(renderer, scoreTexture, nullptr, &scoreRect, 0.0, nullptr, SDL_FLIP_NONE);
+
     SDL_RenderPresent(renderer);
 
-    if (ball->isOutOfScreen()) {
+    if (this->ball->getBody().x < 0) {
         ball->restart({SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, BALL_WIDTH, BALL_HEIGHT}, -BALL_VELOCITY, -BALL_VELOCITY);
+        enemyScore++;
+    } else if (ball->getBody().x + ball->getBody().width > SCREEN_WIDTH) {
+        ball->restart({SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, BALL_WIDTH, BALL_HEIGHT}, -BALL_VELOCITY, -BALL_VELOCITY);
+        playerScore++;
     }
 
     delta = timer->getTicks() * 0.001;
@@ -97,7 +120,6 @@ void Game::close() {
     renderer = nullptr;
     window = nullptr;
 
-    Mix_Quit();
     IMG_Quit();
     SDL_Quit();
 }

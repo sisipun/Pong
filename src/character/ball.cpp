@@ -47,10 +47,6 @@ void Ball::restart(Body body, float horizontalVelocity, float verticalVelocity) 
     this->verticalVelocity = verticalVelocity;
 }
 
-bool Ball::isOutOfScreen() {
-    return this->body.x < 0 || this->body.x + this->body.width > SCREEN_WIDTH;
-}
-
 Body Ball::getBody() {
     return this->body;
 }

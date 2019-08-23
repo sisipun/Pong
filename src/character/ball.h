@@ -14,8 +14,6 @@ public:
 
     void restart(Body body, float horizontalVelocity, float verticalVelocity);
 
-    bool isOutOfScreen();
-
     Body getBody();
 
 private:
